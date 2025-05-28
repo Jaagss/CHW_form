@@ -1,0 +1,98 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:padding="16dp"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Did the doctor/Pharmacist explain why taking the full course is important?"
+            android:textColor="#555555"
+            android:textSize="16sp"
+            android:layout_marginBottom="12dp" />
+
+        <Spinner
+            android:id="@+id/spinner_importance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="60dp"
+            android:background="@drawable/spinner_background"
+            android:padding="12dp"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Were you informed about the risk of antibiotic misuse?"
+            android:textColor="#555555"
+            android:textSize="16sp"
+            android:layout_marginBottom="12dp" />
+
+        <Spinner
+            android:id="@+id/spinner_missuse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="60dp"
+            android:background="@drawable/spinner_background"
+            android:padding="12dp"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Do you know what antibiotic resistance is?"
+            android:textColor="#555555"
+            android:textSize="16sp"
+            android:layout_marginBottom="12dp" />
+
+        <Spinner
+            android:id="@+id/spinner_knowledge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="60dp"
+            android:background="@drawable/spinner_background"
+            android:padding="12dp"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Do you want to know more information on the responsible antibiotic use?"
+            android:textColor="#555555"
+            android:textSize="16sp"
+            android:layout_marginBottom="12dp" />
+
+        <Spinner
+            android:id="@+id/spinner_responsible_use"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="60dp"
+            android:background="@drawable/spinner_background"
+            android:padding="12dp"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <Button
+            android:id="@+id/buttonNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SUBMIT"
+            android:background="@drawable/chw_next_button"
+            android:backgroundTint="#32C1A0"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_marginBottom="24dp" />
+
+    </LinearLayout>
+</ScrollView>

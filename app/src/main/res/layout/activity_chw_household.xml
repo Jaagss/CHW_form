@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="50dp"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/editHouseholdId"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/chw_textbox"
+            android:hint="Household ID"
+            android:padding="12dp"
+            android:inputType="number"
+            android:textColor="#000"
+            android:textColorHint="#999"
+            android:layout_marginBottom="12dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/chw_textbox">
+
+            <EditText
+                android:id="@+id/editVisitDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Date of visit"
+                android:background="@android:color/transparent"
+                android:padding="12dp"
+                android:focusable="false"
+                android:inputType="none"
+                android:textColor="#000"
+                android:textColorHint="#999"/>
+
+            <ImageView
+                android:id="@+id/calendarIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_calendar" />
+        </RelativeLayout>
+
+        <!-- Village / Town -->
+        <EditText
+            android:id="@+id/editVillage"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/chw_textbox"
+            android:hint="Village/Town"
+            android:padding="12dp"
+            android:textColor="#000"
+            android:textColorHint="#999"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- State Spinner -->
+        <Spinner
+            android:id="@+id/spinnerState"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/spinner_background"
+            android:layout_marginBottom="12dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:spinnerMode="dropdown" />
+
+        <!-- District Spinner -->
+        <Spinner
+            android:id="@+id/spinnerDistrict"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/spinner_background"
+            android:layout_marginBottom="12dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:spinnerMode="dropdown" />
+
+        <!-- Household Size -->
+        <EditText
+            android:id="@+id/editHouseholdSize"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/chw_textbox"
+            android:hint="Household Size"
+            android:padding="12dp"
+            android:inputType="number"
+            android:textColor="#000"
+            android:textColorHint="#999"
+            android:layout_marginBottom="24dp"/>
+        <Button
+            android:id="@+id/buttonNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NEXT"
+            android:background="@drawable/chw_next_button"
+            android:backgroundTint="#32C1A0"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_marginBottom="20dp" />
+
+    </LinearLayout>
+</ScrollView>
