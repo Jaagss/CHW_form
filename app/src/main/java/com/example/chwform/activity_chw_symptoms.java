@@ -85,10 +85,16 @@ public class activity_chw_symptoms extends AppCompatActivity {
         });
 
         nextButton.setOnClickListener(v -> {
+            FormData formData = FormData.getInstance();
+            formData.antibiotics = spinnerAntibiotics.getSelectedItem().toString().trim();
+            formData.symptoms = otherSymptoms.getText().toString().trim();
+
             String selected = spinnerAntibiotics.getSelectedItem().toString();
             String medicationMode = spinnerMedication.getSelectedItem().toString();
 
+
             if (selected.equals("Yes")) {
+                formData.modeOfMedication = spinnerMedication.getSelectedItem().toString().trim();
                 Intent intent = new Intent(activity_chw_symptoms.this, activity_chw_prescription.class);
                 intent.putExtra("medication_mode", medicationMode);
                 startActivity(intent);
