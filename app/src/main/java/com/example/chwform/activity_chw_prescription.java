@@ -2,6 +2,7 @@ package com.example.chwform;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -17,7 +18,10 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class activity_chw_prescription extends AppCompatActivity {
 
@@ -66,7 +70,7 @@ public class activity_chw_prescription extends AppCompatActivity {
         setupSpinner(spinnerGender, R.array.gender_options);
         setupSpinner(spinnerAntibiotic, R.array.antibiotics_list);
         setupSpinner(spinnerUnit, R.array.dosage_units);
-        setupSpinner(spinnerCourseComplete, R.array.antibiotics_usage);
+        setupSpinner(spinnerCourseComplete, R.array.booleans);
 
         // Date picker setup
         calendarIcon.setOnClickListener(v -> showDatePicker());
@@ -91,6 +95,26 @@ public class activity_chw_prescription extends AppCompatActivity {
         // Next button
         buttonNext.setOnClickListener(v -> {
             if (isFormValid()) {
+                FormData formData = FormData.getInstance();
+                formData.name = editName.getText().toString().trim();
+                formData.age = editAge.getText().toString().trim();
+                formData.gender = spinnerGender.getSelectedItem().toString();
+                formData.occupation = editOccupation.getText().toString().trim();
+                formData.obtainedFrom = editSource.getText().toString().trim();
+                formData.dateOfAntibioticUsed = editAntibioticDate.getText().toString().trim();
+                formData.dosage = editDosage.getText().toString().trim();
+                formData.unit = spinnerUnit.getSelectedItem().toString();
+                formData.duration = editDuration.getText().toString().trim();
+                formData.fullCourseTaken = spinnerCourseComplete.getSelectedItem().toString().equalsIgnoreCase("Yes");
+                if (photoURI != null) {
+                    try {
+                        formData.imageMimeType = getContentResolver().getType(photoURI);
+                        formData.antibioticImage = getContentResolver().openInputStream(photoURI).readAllBytes();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(this, "Failed to read image", Toast.LENGTH_SHORT).show();
+                    }
+                }
                 // Go to next activity
                 Intent intent = new Intent(this, activity_chw_last_page.class); // Replace with your activity
                 startActivity(intent);
@@ -114,8 +138,9 @@ public class activity_chw_prescription extends AppCompatActivity {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         new DatePickerDialog(this, (DatePicker view, int year1, int month1, int dayOfMonth) -> {
+            String formatted = String.format(Locale.US, "%04d-%02d-%02d", year, month + 1, dayOfMonth);
             String date = dayOfMonth + "/" + (month1 + 1) + "/" + year1;
-            editAntibioticDate.setText(date);
+            editAntibioticDate.setText(formatted);
         }, year, month, day).show();
     }
 
@@ -138,25 +163,28 @@ public class activity_chw_prescription extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_UPLOAD && resultCode == RESULT_OK) {
             Uri selectedImage = null;
 
-            // Check if the intent has data from gallery
-            if (data != null && data.getData() != null) {
-                selectedImage = data.getData(); // Image picked from gallery
-            } else if (data != null && data.getExtras() != null) {
-                Bundle extras = data.getExtras();
-                if (extras.get("data") != null) {
-                    // You can retrieve a Bitmap from the camera
-                    // Bitmap imageBitmap = (Bitmap) extras.get("data");
-                    Toast.makeText(this, "Photo captured!", Toast.LENGTH_SHORT).show();
-                    // Save bitmap or convert to URI
+            if (data != null) {
+                if (data.getData() != null) {
+                    // Picked from gallery
+                    photoURI = data.getData();
+                    editPrescriptionFile.setText("Image selected");
+                } else if (data.getExtras() != null && data.getExtras().get("data") != null) {
+                    // Captured with camera
+                    Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
+                    Uri tempUri = getImageUri(imageBitmap);
+                    photoURI = tempUri;
+                    editPrescriptionFile.setText("Photo captured");
                 }
-            }
-
-            if (selectedImage != null) {
-                editPrescriptionFile.setText("Image selected");
             }
         }
     }
 
+    private Uri getImageUri(Bitmap bitmap) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "Title", null);
+        return Uri.parse(path);
+    }
     private boolean isFormValid() {
         return !editName.getText().toString().trim().isEmpty()
                 && !editAge.getText().toString().trim().isEmpty()

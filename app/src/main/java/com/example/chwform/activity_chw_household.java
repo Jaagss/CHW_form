@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 public class activity_chw_household extends AppCompatActivity {
 
@@ -49,6 +50,13 @@ public class activity_chw_household extends AppCompatActivity {
 
         buttonNext.setOnClickListener(v -> {
             if (validateInputs()) {
+                FormData formData = FormData.getInstance();
+                formData.householdId = editHouseholdId.getText().toString().trim();
+                formData.visitDate = editVisitDate.getText().toString().trim();
+                formData.village = editVillage.getText().toString().trim();
+                formData.state = spinnerState.getSelectedItem().toString();
+                formData.district = spinnerDistrict.getSelectedItem().toString();
+                formData.householdSize = editHouseholdSize.getText().toString().trim();
                 Intent intent = new Intent(activity_chw_household.this, activity_chw_treatment.class);
                 startActivity(intent);
             }
@@ -62,8 +70,9 @@ public class activity_chw_household extends AppCompatActivity {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         new DatePickerDialog(activity_chw_household.this, (DatePicker view, int year1, int month1, int dayOfMonth) -> {
+            String formatted = String.format(Locale.US, "%04d-%02d-%02d", year, month + 1, dayOfMonth);
             String date = dayOfMonth + "/" + (month1 + 1) + "/" + year1;
-            editVisitDate.setText(date);
+            editVisitDate.setText(formatted);
         }, year, month, day).show();
     }
 
